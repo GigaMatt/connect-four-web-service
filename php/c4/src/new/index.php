@@ -1,40 +1,31 @@
 <!-- "new" will make a new game  -->
 <?php
-
+$strategy = $_GET['strategy'];
 $game= new Game($strategy);
 $pid = uniqid();
 $file = DATA_DIR . $pid . DATA_EXT;
 define('STRATEGY', 'strategy'); // constant
 $strategies = array("Smart", "Random"); // supported strategies
 
-$strategy = $_GET['strategy'];
 
-$strategy = new $strategies[$strategy]($board); 
+// $strategy = new $strategies[$strategy]($board); 
 
-if (storeState($file, $game->toJsonString())) {
+if (storeState($file, json_encode($game))){
    echo json_encode(array("response" => true, PID => $pid));
 } else {
    echo createResponse("Failed to store game data");
 }
 
-
-$info = new GameInfo(WIDTH,HEIGHT, array_keys($strategies));
-
-class GameInfo {
-    public $width;
-    public $height;
-    public $strategies;
-    function __construct($width, $height, $strategies) {
-       $this->width= $width;
-       $this->height= $height;
-       $this->strategies= $strategies;
-    }   
+function storeState($file,$game){
+    // echo "fuck";
+    return true;
 }
+
+
 
 class Game {
     public $board;
     public $strategy;
-
     static function fromJsonString($json) {
        $obj = json_decode($json); // instance of stdClass
        $strategy = $obj->{'strategy'};
@@ -48,24 +39,39 @@ class Game {
     }
 }
  
-abstract class MoveStrategy {
-    var $board;
+
+// $info = new GameInfo(WIDTH,HEIGHT, array_keys($strategies));
+
+// class GameInfo {
+//     public $width;
+//     public $height;
+//     public $strategies;
+//     function __construct($width, $height, $strategies) {
+//        $this->width= $width;
+//        $this->height= $height;
+//        $this->strategies= $strategies;
+//     }   
+// }
+
  
-    function __construct(Board $board = null) {
-       $this->board = $board;
-    }
+// abstract class MoveStrategy {
+//     var $board;
  
-    abstract function pickSlot();
+//     function __construct(Board $board = null) {
+//        $this->board = $board;
+//     }
  
-    function toJason() {
-       return array(‘name’ => get_class($this));
-    }
+//     abstract function pickSlot();
  
-    static function fromJson($obj) {
-        $strategy = new self();
-        return $strategy;
-    }
-}
+//     function toJason() {
+//        return array(‘name’ => get_class($this));
+//     }
+ 
+//     static function fromJson($obj) {
+//         $strategy = new self();
+//         return $strategy;
+//     }
+// }
  
  
 
