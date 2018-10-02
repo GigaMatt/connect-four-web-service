@@ -1,4 +1,3 @@
-<!-- "new" will make a new game  -->
 <?php
 $strategy = $_GET['strategy'];
 $game= new Game($strategy);
@@ -11,7 +10,8 @@ $strategies = array("Smart", "Random"); // supported strategies
 // $strategy = new $strategies[$strategy]($board); 
 
 if (storeState($file, json_encode($game))){
-   echo json_encode(array("response" => true, PID => $pid));
+//    echo json_encode(array("response" => true, PID => $pid));
+    echo $strategy;
 } else {
    echo createResponse("Failed to store game data");
 }
