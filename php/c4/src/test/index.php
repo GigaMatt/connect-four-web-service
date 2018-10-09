@@ -1,4 +1,14 @@
 <?php
+
+/*
+CS 3360: Programming Langauges
+Project 1: Web Scripting with PHP
+Purpose: To implement a lightweight web service for playing Connect Four
+@author: Samuel Tinevra
+@author: Matthew Montoya
+Last Modified: 8 October 2018
+*/
+
 // torture.php - tortue a Connect Four web service by performing
 // various tests, esp. error handling. 
 // Requires PHP version 5.3.3 or higher
