@@ -13,30 +13,29 @@ define('STRATEGY', 'strategy'); // constant
 $strategies = array("Smart", "Random"); //supported strategies
 
 
-// $myObj->zero = ['','','','','','',''];
-// $myObj->one = ['','','','','','',''];
-// $myObj->two = ['','','','','','',''];
-// $myObj->three=['','','','','','',''];
-// $myObj->four =['','','','','','',''];
-// $myObj->five =['','','','','','',''];
+
 $myObj = array
-  (
+(
   array('','','','','','',''),
   array('','','','','','',''),
   array('','','','','','',''),
   array('','','','','','',''),
   array('','','','','','',''),
   array('','','','','','',''),
-  );
+);
 
 $board = json_encode($myObj);
 
 if (storeState()){
     //saving the new game into DB
+    //"ack_move":{"slot":0,"isWin":true,"isDraw":false,"row":[0,2,0,3,0,4,0,5]}}
+    $array = [];
     $gameInfo = new Parse\ParseObject("GameSession");
     $gameInfo->set("pid", $pid);
     $gameInfo->set("strategy", $strategy);
     $gameInfo->set("board", $board);
+    //$gameInfo->set("ack_move",)
+    $gameInfo->set("row", $array);
     $gameInfo->save();
     //responding to call
     echo json_encode(array("response" => true, PID => $pid));
