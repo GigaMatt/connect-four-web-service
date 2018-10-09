@@ -12,8 +12,8 @@ try {
     //query the game Session 
     $gameInfo = $query->equalTo("pid", $pid);
 
+    //getting the board
     $board = $gameInfo->get('board');
-    $gameInfo->add("row", $move);
     
     //updating the board
     for ($row = 6; $row >= 0; $row--) {
@@ -22,12 +22,14 @@ try {
         }
     }
     $gameInfo -> set('board',$board);
+
+    //saving the board
     $gameInfo -> save();
+
     //check if player won
     if(checker("B",$board)){
-        //< {"response":true,
-        //"ack_move":{"slot":0,"isWin":true,"isDraw":false,"row":[0,2,0,3,0,4,0,5]}}
-        echo("won");
+        $player = $gameInfo -> get('ack_move');
+        echo($player);
     }
 
     else{
