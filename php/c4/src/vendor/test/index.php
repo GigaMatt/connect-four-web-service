@@ -1,4 +1,16 @@
 <?php
+
+/** CS 3360: Programming Languages
+ * Programming Assignment 1: PHP
+ * @author Samuel Tinevra
+ * @author Matthew S Montoya
+ * @author Yoonsik Cheon
+ * Purpose: To practice 
+ * Last Modified: 4 October 2018
+*/
+
+
+
 // torture.php - tortue a Connect Four web service by performing
 // various tests, esp. error handling. 
 // Requires PHP version 5.3.3 or higher
