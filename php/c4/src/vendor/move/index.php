@@ -6,50 +6,127 @@ Parse\ParseClient::setServerURL('https://c4plserver.herokuapp.com/','parse');
 
 $pid = $_GET['pid'];
 $move = $_GET['move'];
-$query = new ParseQuery("GameSession");
+
+$query = new Parse\ParseQuery("GameSession");
 
 try {
-    //query the game Session 
-    $gameInfo = $query->equalTo("pid", $pid);
+    $gameScore = $query->equalTo("pid","5bbc398069627");
+        $gameInfo = $query->first();
+        $board = $gameInfo->get("board");
+        echo json_encode($board);
 
-    //getting the board
-    $board = $gameInfo->get('board');
+            // //updating the board
+            // for ($row = 6; $row >= 0; $row--) {
+            //     if($board[$row][$move] == ""){
+            //         $board[$row][$move] = "B";
+            //     }
+            // }
+            // $gameInfo -> set('board',$board);
+        
+            // //saving the board
+            // $gameInfo -> save();
+        
+            // //check if player won
+            // if(checker("B",$board)){
+            //     $player -> set('isWin',true);
+            //     $gameInfo->set('ack_move',$player);
+            //     //$gameInfo -> save();
+            //     //responding
+            //     $res->respose = true;
+            //     $res->ack_move = $gameInfo->get('ack_move');
+            //     $res->move = $gameInfo->get('move');    
+            //     echo(json_encode($res));
+            // }
+        
+            // else{
+            //     //update the board with AI move
+            //     $random = rand (0,6);
+            //     $player2 = $gameInfo->get('move');
+               
+        
+            //     $gameInfo->add("row", $random);
+            //     for ($row = 6; $row >= 0; $row--) {
+            //         if($board[$row][$random] == ""){
+            //             $board[$row][$random] = "R";
+            //         }
+            //     }
+            //     if(checker("R",$board)){
+            //         $player2 -> set('isWin',true);
+            //         $gameInfo->set('move',$player2);
+            //         $gameInfo -> save();
+            //         //responding
+            //         $res->respose = true;
+            //         $res->ack_move = $gameInfo->get('ack_move');
+            //         $res->move = $gameInfo->get('move');    
+            //         echo(json_encode($res));
+            //     }
+            // }
+
+} catch (ParseException $ex) {echo"error";}
+
+// try {
+//     $gameInfo = $query->equalTo("pid",$pid);
+//     $object = $query->first();
+//     //$board = $object->get("board");
+ 
+//     //getting the board
+//     // $board = $gameInfo->get('move');
+//     // echo (json_encode($board));
+
+
+//     $player = $gameInfo->get('ack_move');
+//     $player -> set('slot',$move);
+//     $gameInfo -> set('ack_move',$player);
     
-    //updating the board
-    for ($row = 6; $row >= 0; $row--) {
-        if($board[$row][$move] == ""){
-            $board[$row][$move] = "B";
-        }
-    }
-    $gameInfo -> set('board',$board);
+//     //updating the board
+//     for ($row = 6; $row >= 0; $row--) {
+//         if($board[$row][$move] == ""){
+//             $board[$row][$move] = "B";
+//         }
+//     }
+//     $gameInfo -> set('board',$board);
 
-    //saving the board
-    $gameInfo -> save();
+//     //saving the board
+//     $gameInfo -> save();
 
-    //check if player won
-    if(checker("B",$board)){
-        $player = $gameInfo -> get('ack_move');
-        echo($player);
-    }
+//     //check if player won
+//     if(checker("B",$board)){
+//         $player -> set('isWin',true);
+//         $gameInfo->set('ack_move',$player);
+//         $gameInfo -> save();
+//         //responding
+//         $res->respose = true;
+//         $res->ack_move = $gameInfo->get('ack_move');
+//         $res->move = $gameInfo->get('move');    
+//         echo(json_encode($res));
+//     }
 
-    else{
-        //call the move of the AI
-        //update the board with AI move
-        $random = rand ( 0,6);
-        $gameInfo->add("row", $random);
-        for ($row = 6; $row >= 0; $row--) {
-            if($board[$row][$random] == ""){
-                $board[$row][$random] = "R";
-            }
-        }
-    }
-    //check if AI won
-  
+//     else{
+//         //update the board with AI move
+//         $random = rand (0,6);
+//         $player2 = $gameInfo->get('move');
+//         $player2 -> set('slot',$random);
 
-    
-  } catch (ParseException $ex) {
-    echo 'error';
-  }
+//         $gameInfo->add("row", $random);
+//         for ($row = 6; $row >= 0; $row--) {
+//             if($board[$row][$random] == ""){
+//                 $board[$row][$random] = "R";
+//             }
+//         }
+//         if(checker("R",$board)){
+//             $player2 -> set('isWin',true);
+//             $gameInfo->set('move',$player2);
+//             $gameInfo -> save();
+//             //responding
+//             $res->respose = true;
+//             $res->ack_move = $gameInfo->get('ack_move');
+//             $res->move = $gameInfo->get('move');    
+//             echo(json_encode($res));
+//         }
+//     }
+//   } catch (ParseException $ex) {
+//     echo 'error';
+//   }
 // $data = $query->find();
 
 

@@ -21,10 +21,13 @@ $myObj = array
 $board = json_encode($myObj);
 
 $array = [];
-$player->slot = 0;
-$player->isWin = false;
-$player->isDraw = false;
-$player->row = $array;
+
+
+$player["slot"] = 0;
+$player["isWin"] = false;
+$player["isDraw"] = false;
+$player["row"]  = $array;
+
 $ack_move = json_encode($player);
 $move = json_encode($player);
 
@@ -36,14 +39,12 @@ if (storeState()){
     $gameInfo->set("move",$move);
     $gameInfo->set("board", $board);
     $gameInfo->save();
-    //responding to call
-    echo json_encode(array("response" => true, PID => $pid));
+   echo json_encode(array("response" => true, "pid" => $pid));
 } else {
    echo createResponse("Failed to store game data");
 }
 
 function storeState(){
-    // echo "fuck";
     return true;
 }
 
